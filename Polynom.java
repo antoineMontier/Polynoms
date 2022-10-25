@@ -23,7 +23,7 @@ public class Polynom {
 
     public String toString(){
         String res = "";
-        for(int i = 0 ; i < c.size()-1 ; i++){
+        for(int i = 0 ; i < c.size() ; i++){
             res += c.get(i) + " ";
         }
         return res;
@@ -172,15 +172,33 @@ public class Polynom {
 
             c.set(i, r);
         }
+    }
 
+    public void times(double x, int n){
+        if(n < 0){
+            throw new IllegalArgumentException("the power must be positive, you entered " + n);
+        }
+        if((x == 1 && n == 0)|| size() == 0){
+            return;
+        }
+        if(x == 0){
+            for(int i = 0 ; i < c.size() ; i++){
+                c.set(i, new Monom(0));
+            }
+            
+            return;
+        }
 
-
+        for(int i = 0 ; i < c.size() ; i++){
+            Monom r = new Monom(((Monom)c.get(i)));
+            r.setCoefficient(r.getCoefficient()*x);
+            r.setPow(r.getPow() + n);
+            c.set(i, r);
+        }
 
 
 
     }
-
-
 
 
     

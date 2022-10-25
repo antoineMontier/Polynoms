@@ -9,9 +9,9 @@ public class Tests {
     System.out.println(r + " of size "+ r.size());
     System.out.println(r + " of size "+ r.size());*/
 
+        
 
-
-    Polynom f = new Polynom(1, 0);
+    Polynom f = new Polynom(1);
     f.add(new Monom(4, 1));
     f.add(-7, 15);
     f.add(11, 14);
@@ -20,6 +20,7 @@ public class Tests {
 
     System.out.println(f + " of size "+ f.size());
 
+    f.times(-0.1, 5);
 
     System.out.println(f + " of size "+ f.size());
 
