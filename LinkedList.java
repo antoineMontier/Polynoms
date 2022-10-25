@@ -51,8 +51,8 @@ public class LinkedList {
    /**
      * @return the last cell
      */
-     public Cell getTail(){
-        return tail;
+     public Object getTail(){
+        return tail.getcontent();
     }
 
 
@@ -76,8 +76,8 @@ public class LinkedList {
     /**
      * @return the first cell
      */
-    public Cell getHead(){
-        return head;
+    public Object getHead(){
+        return head.getcontent();
     }
 
     /**
@@ -140,6 +140,24 @@ public class LinkedList {
         tail = null;//delete tail
         tail = temp;//set the new tail
     }
+/*public void destroy(){
+      if(size() == 0){
+        return;
+      }
+      if(size() == 1){
+        head = null;
+        tail = null;
+        return;
+      }
+      Cell walker = new Cell(head.getnext());
+      Cell destroyer = new Cell(head);
+      destroyer = null;
+      while(walker.getnext() != null){
+        destroyer = walker;
+        walker = walker.getnext();
+        destroyer = null;
+      }
+    }*/
 
 
     public String toString(){
@@ -186,6 +204,35 @@ public class LinkedList {
         }
         return count;
     }
+
+    public void set(int pos, Object o){
+      //3 exceptions
+      if(pos > size() || pos < 0){
+        throw new IllegalArgumentException("bad index \"" + pos + "\" for the list " + this + " in the insertHere function");
+    }
+    if(pos == 0){
+       head.setcontent(o);
+        return;
+    }
+    if(pos == size()){
+        tail.setcontent(o);
+        return;
+    }
+
+    //general case
+
+    Cell temp = new Cell();
+    temp.setnext(head);
+    //temp = temp.getnext(); //temp is located in the head
+
+    for(int i = 0 ; i <= pos; i++){
+        temp = temp.getnext();
+    }
+    //here, temp is on the "pos" cell
+    temp.setcontent(o);
+    
+    }
+
 
     /**
      * @param pos position to insert : 0 means before head ; size() means after tail and n means between n-1 and n
@@ -695,4 +742,41 @@ public class LinkedList {
       return d;
 
     }
+/*
+    public void sortMonom(){
+
+      if(size() < 2){
+        return;// nothing to do for an empty list or a 1-element list
+      }
+
+      // first step : detection :
+      Cell walker = new Cell();
+      walker.setnext(head);
+      walker = walker.getnext();//walker is the header Cell
+
+      for(int i = 1 ; i < size() ; i++){
+        if(stringCompare(walker.getcontent().getClass().getSimpleName(), "Monom") != 0){
+          throw new IllegalArgumentException("the list " + this + " is not made of Monom objects, cannot be sorted using monom function !");
+        }
+        walker = walker.getnext();
+      }
+
+      //here, the list is full of monoms
+  
+        //bubble sort for numerical values
+        int n = size() -2;
+        int exchangeindex;
+        while(n >= 0){
+          exchangeindex = 0;
+          for(int j = 0 ; j <= n ; j++){
+            if(get(j).getPow() > get(j+1).getPow()){ //that means value at j is greater than value at j+1
+              swap(j, j+1);
+              exchangeindex = j;
+            }
+          }
+          n = exchangeindex - 1;
+        }
+        return;//the list is sorted
+      }
+    }*/
 }
