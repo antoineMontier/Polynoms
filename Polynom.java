@@ -468,6 +468,18 @@ public class Polynom {
         return res;
     }
 
+    /**
+     * @param inf inferior value 
+     * @param sup superior value
+     * @return the integral of the current polynom between inf and sup
+     */
+    public double integral(double inf, double sup){
+        if(size() == 0 || inf == sup){
+            return 0;
+        }
+        return primitive().im(sup) - primitive().im(inf);
+    }
+
 
 
 

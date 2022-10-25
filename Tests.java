@@ -15,21 +15,20 @@ public class Tests {
     Polynom k = new Polynom(7, 11);
     k.add(2, 4);
     k.add(1, 5);
-    f.add(new Monom(7, 11));
-    f.add(1, 1);
-    f.add(1, 14);
-    f.add(0);
+   // f.add(new Monom(7, 11));
+   // f.add(1, 1);
+   // f.add(1, 14);
+  //  f.add(0);
     f.sort();
 
-    System.out.println("f(x) = " + f + "f'(x)= " + f.derivate());
-
-    System.out.println("f(x) = " + f + "F(x)= " + f.primitive());
-    
-    System.out.println("f(x) = " + f + "F'(x)= " + f.primitive().derivate());
-
+    System.out.println("f(x) = " + f + "  integral between - 7 and 15 :"  + f.integral(-7, 15));
 
 
     /*
+    System.out.println("f(x) = " + f + "f'(x)= " + f.derivate());
+    System.out.println("f(x) = " + f + "F(x)= " + f.primitive());
+    System.out.println("f(x) = " + f + "F'(x)= " + f.primitive().derivate());
+
     System.out.println("f(x) = " + f + "f^2 = " + f.pow(6));
 
     System.out.println("f(x) = " + f + "f(2) = " + f.im(2));
