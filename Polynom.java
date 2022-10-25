@@ -3,31 +3,52 @@ public class Polynom {
 
     private LinkedList c;//coefficient tab
 
+    /**
+     * creates an empty polynom
+     */
     public Polynom(){
         c = new LinkedList();
     }
 
+    /**
+     * @param m monom to build the polynom
+     */
     public Polynom(Monom m){
         c = new LinkedList(m);
     }
 
+    /**
+     * @param x coefficient
+     */
     public Polynom(double x){
         Monom m = new Monom(x, 0);
         c = new LinkedList(m);
     }
 
+    /**
+     * @param x coefficient
+     * @param n power
+     */
     public Polynom(double x, int n){
         Monom m = new Monom(x, n);
         c = new LinkedList(m);
     }
 
+    /**
+     * @param p polynom to copy
+     * copy contructor (copy the monom too to avoid bad modifications on another polynom)
+     */
     public Polynom(Polynom p){
         c = new LinkedList();
         for(int i = 0 ; i < p.size() ; i++){
-            c.addHead(((Monom)p.get(i)));
+            c.addHead(new Monom((Monom)p.get(i)));
         }
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     * returns the polynom with simplifications on writtings /!\ 0 coefficients won't be returned even if the monom does exists
+     */
     public String toString(){
         String res = "";
         for(int i = 0 ; i < c.size() ; i++){
@@ -50,6 +71,10 @@ public class Polynom {
         return r;*/
     }
 
+    /**
+     * @param m is the monom we want to add
+     * adding the monom to the polynom (or increasing the coefficient if it already exists)
+     */
     public void add(Monom m){
         if(m.getCoefficient() == 0){
             return;
@@ -65,6 +90,10 @@ public class Polynom {
         c.addHead(m);
     }
 
+    /**
+     * @param x coefficient
+     * adding the double number to the polynom (or increasing the coefficient if it already exists)
+     */
     public void add(double x){
         if(x == 0 ){
             return;
@@ -80,6 +109,11 @@ public class Polynom {
         c.addTail(m);
     }
 
+    /**
+     * @param x coefficient
+     * @param n power
+     * adding the monom(x, n) to the polynom (or increasing the coefficient if it already exists)
+     */
     public void add(double x, int n){
         if(n < 0){
             throw new IllegalArgumentException("the power of a monom must be positif but you entered " + n + " as power");
@@ -97,6 +131,10 @@ public class Polynom {
         c.addTail(m);
     }
 
+    /**
+     * @param i index
+     * @return the monom at the index (following the linkedlist rules)
+     */
     public Monom get(int i){
         if(i < 0 || i >= size()){
             throw new IllegalArgumentException("you can't get the "+i+"e monom of the polynom" + this);
@@ -141,6 +179,10 @@ public class Polynom {
     }
 
 
+    /**
+     * @param m monom to add
+     * @return new polynom resulting the addition
+     */
     public Polynom plus(Monom m){
         Polynom res = new Polynom(this);
         res.add(m);
@@ -148,6 +190,10 @@ public class Polynom {
         return res;
     }
     
+    /**
+     * @param x double to add
+     * @return new polynom resulting the addition
+     */
     public Polynom plus(double x){
         Polynom res = new Polynom(this);
         res.add(x);
@@ -155,6 +201,11 @@ public class Polynom {
         return res;
     }
     
+    /**
+     * @param x coefficient
+     * @param n power
+     * @return new polynom resulting the addition
+     */
     public Polynom plus(double x, int n){
         Polynom res = new Polynom(this);
         if(n < 0){
@@ -165,6 +216,10 @@ public class Polynom {
         return res;
     }
    
+    /**
+     * @param p polynom to add
+     * @return new polynom resulting the addition
+     */
     public Polynom plus(Polynom p){
         Polynom res = new Polynom(this);
         for(int i = 0 ; i < p.size() ; i++){
@@ -200,6 +255,10 @@ public class Polynom {
         return res;
     }
 
+    /**
+     * @param m monom to multiply
+     * @return new polynom resulting the multiplication
+     */
     public Polynom times(Monom m){
         Polynom res = new Polynom();
         if((m.getPow() == 0 && m.getCoefficient() == 1 )|| size() == 0){
@@ -222,6 +281,11 @@ public class Polynom {
         return res;
     }
 
+    /**
+     * @param x coefficient
+     * @param n power
+     * @return new polynom resulting the multiplication
+     */
     public Polynom times(double x, int n){
         Polynom res = new Polynom();
 
@@ -245,6 +309,10 @@ public class Polynom {
         return res;
     }
 
+    /**
+     * @param p polynom to multiply
+     * @return new polynom resulting the multiplication
+     */
     public Polynom times(Polynom p){
         Polynom res = new Polynom(this);
         if(p.size() == 0 || size() == 0){
@@ -263,7 +331,6 @@ public class Polynom {
         Polynom rres = new Polynom();
 
         for(int i = 0 ; i < p.size() ; i++){
-            System.out.println("..." + res);
             rres = rres.plus(this.times(p.get(i)));
         }
         rres.sort();
@@ -271,7 +338,24 @@ public class Polynom {
     }
 
 
+    /**
+     * @return the maximal degree of the polynom ; returns 0 if the polynom is empty
+     */
+    public int deg(){
+        int res = 0;
+        if(size() == 0){
+            return res;
+        }
+        int k;
+        for(int i = 0 ; i < size() ; i++){
+            k=((Monom)c.get(i)).getPow();
+            if(k > res){
+            res = k;
+            }
 
+        }
+        return res;
+    }
 
 
 
