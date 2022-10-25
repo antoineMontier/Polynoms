@@ -11,22 +11,21 @@ public class Tests {
 
         
 
-    Polynom f = new Polynom(00);
-    Polynom k = new Polynom(7, 11);
-    k.add(2, 4);
-    k.add(1, 5);
-    f.add(new Monom(150, 121));
-   // f.add(1, 1);
-   // f.add(1, 14);
-  //  f.add(0);
+    Polynom f = new Polynom();
+    f.add(1, 1);
+    f.add(-1, 31);
+    f.add(4);
     f.sort();
 
-    System.out.println("f(x) = " + f + "  f even : " + f.even());
-    System.out.println("f(x) = " + f + "  f uneven : " + f.uneven());
+    System.out.println("f(x) = " + f + "  roots of f : " + f.roots());
+   
 
 
 
     /*
+    System.out.println("f(x) = " + f + "  f even : " + f.even());
+    System.out.println("f(x) = " + f + "  f uneven : " + f.uneven());
+
     System.out.println("f(x) = " + f + "  integral between - 7 and 15 :"  + f.integral(-7, 15));
 
     System.out.println("f(x) = " + f + "f'(x)= " + f.derivate());

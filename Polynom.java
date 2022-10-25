@@ -321,7 +321,6 @@ public class Polynom {
      * @return new polynom resulting the multiplication
      */
     public Polynom times(Polynom p){
-        Polynom res = new Polynom(this);
         if(p.size() == 0 || size() == 0){
             return new Polynom();//0-polynom if one of the two polynoms is null
         }
@@ -519,6 +518,77 @@ public class Polynom {
         }
         return res;
     }
+
+    /**
+     * @return a list of points located on the polynom graph, all with a 0 y-axis ; (roots)
+     */
+    public LinkedList roots(){
+        LinkedList res = new LinkedList();
+        if(size() == 0){
+            return res;
+        }
+        //principal loop
+        boolean prevpositiv;
+        boolean positiv = im(X_MIN) > 0;
+        boolean focus = false;
+        double pas = deg()/PRECISION;
+        //seach loop 
+        double s;
+        boolean spositiv;
+        boolean sprevpositiv;
+        boolean finded;
+
+
+        for(double x = X_MIN ; x < X_MAX ; x += pas){//principal loop
+
+            prevpositiv = positiv;
+
+            positiv = im(x) > 0;
+
+            if(positiv != prevpositiv){//if the function sign changes, the focus searches needs to start
+                focus = true;
+            }
+
+            if(focus){
+                finded = false;
+                s = x - pas;
+                spositiv = im(s)> 0;
+                for(double e = s ; e < x && !finded ; e += pas/PRECISION){
+                    sprevpositiv = spositiv;
+                    spositiv = im(e) > 0;
+                    if(spositiv != sprevpositiv){
+                        finded = true;
+                        s = e;
+                    }
+                }
+                res.addHead(new Point(s /*- pas/2*PRECISION*/, 0));
+                focus = false;
+            }
+        }
+        return res;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
