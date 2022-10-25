@@ -357,9 +357,42 @@ public class Polynom {
         return res;
     }
 
+    /**
+     * @param p polynom to compare
+     * @return true if both polynoms are exactly the same, otherwise returns false
+     */
+    public boolean equals(Polynom p){
+        if(p.size() == 0 && size() == 0){
+            return true;
+        }
+        if(p.size() != size()){
+            return false;
+        }
+        p.sort();
+        sort();
+        for(int i = 0 ; i < size() ; i++){
+            if(!p.get(i).equals(get(i))){
+                return false;
+            }
+        }
+        return true;
+    }
 
-
-
+    public double getCoefficientWithIndex(int n){
+        if(n < 0){
+            throw new IllegalArgumentException("the power must be positive, you entered " + n);
+        }
+        if(size() == 0){
+            return 0;
+        }
+        sort();
+        for(int i = 0 ; i < size() ; i++){
+            if(((Monom)c.get(i)).getPow() == n){
+                return ((Monom)c.get(i)).getCoefficient();
+            }
+        }
+        return 0;
+    }
 
     
 }
