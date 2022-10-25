@@ -21,6 +21,13 @@ public class Polynom {
         c = new LinkedList(m);
     }
 
+    public Polynom(Polynom p){
+        c = new LinkedList();
+        for(int i = 0 ; i < p.size() ; i++){
+            c.addHead(((Monom)p.get(i)));
+        }
+    }
+
     public String toString(){
         String res = "";
         for(int i = 0 ; i < c.size() ; i++){
@@ -33,13 +40,14 @@ public class Polynom {
      * @return the monom number
      */
     public int size(){
-        int r = 0;
+        return c.size();
+        /*int r = 0;
         for(int i = 0 ; i < c.size() ;i++){
             if(((Monom)c.get(i)).getCoefficient() != 0){//assert the monom value isn't zero
                 r++;
             }
         }
-        return r;
+        return r;*/
     }
 
     public void add(Monom m){
@@ -132,39 +140,81 @@ public class Polynom {
         return;//the list is sorted
     }
 
+
+    public Polynom plus(Monom m){
+        Polynom res = new Polynom(this);
+        res.add(m);
+        res.sort();
+        return res;
+    }
+    
+    public Polynom plus(double x){
+        Polynom res = new Polynom(this);
+        res.add(x);
+        res.sort();
+        return res;
+    }
+    
+    public Polynom plus(double x, int n){
+        Polynom res = new Polynom(this);
+        if(n < 0){
+            throw new IllegalArgumentException("the power of a monom must be positif but you entered " + n + " as power");
+        }
+        res.add(x, n);     
+        res.sort();
+        return res;
+    }
+   
+    public Polynom plus(Polynom p){
+        Polynom res = new Polynom(this);
+        for(int i = 0 ; i < p.size() ; i++){
+            Monom m = new Monom(((Monom)p.get(i)));
+            res.add(m.getCoefficient(), m.getPow());
+        }
+        res.sort();
+        return res;
+    }
+
+
+
+
     /**
      * @param x the multiplier
      * modify the polynom by multiplying it
      */
-    public void times(double x){
+    public Polynom times(double x){
+        Polynom res = new Polynom();
         if(x == 1 || size() == 0){
-            return;
+            return res;
         }
         if(x == 0){
             for(int i = 0 ; i < c.size() ; i++){
                 c.set(i, new Monom(0));
             }
             
-            return;
+            return res;
         }
 
         for(int i = 0 ; i < c.size() ; i++){
             Monom r = new Monom(((Monom)c.get(i)));
             r.setCoefficient(r.getCoefficient()*x);
-            c.set(i, r);
+            res.add(r);
         }
+        res.sort();
+        return res;
     }
 
-    public void times(Monom m){
+    public Polynom times(Monom m){
+        Polynom res = new Polynom();
         if((m.getPow() == 0 && m.getCoefficient() == 1 )|| size() == 0){
-            return;
+            return res;
         }
         if(m.getCoefficient() == 0){
             for(int i = 0 ; i < c.size() ; i++){
                 c.set(i, new Monom(0));
             }
-            
-            return;
+            res.sort();
+            return res;
         }
 
         for(int i = 0 ; i < c.size() ; i++){
@@ -174,41 +224,60 @@ public class Polynom {
             r.setCoefficient(r.getCoefficient()*m.getCoefficient());
             r.setPow(r.getPow() + m.getPow());
 
-            c.set(i, r);
+            res.add(r);
         }
+        return res;
     }
 
-    public void times(double x, int n){
+    public Polynom times(double x, int n){
+        Polynom res = new Polynom();
+
         if(n < 0){
             throw new IllegalArgumentException("the power must be positive, you entered " + n);
         }
         if((x == 1 && n == 0)|| size() == 0){
-            return;
+            return res;
         }
         if(x == 0){
             for(int i = 0 ; i < c.size() ; i++){
                 c.set(i, new Monom(0));
             }
             
-            return;
+            return res;
         }
 
         for(int i = 0 ; i < c.size() ; i++){
             Monom r = new Monom(((Monom)c.get(i)));
             r.setCoefficient(r.getCoefficient()*x);
             r.setPow(r.getPow() + n);
-            c.set(i, r);
+            res.add(r);
         }
+        res.sort();
+        return res;
     }
 
-    /*public Polynom times(Polynome p){
+    public Polynom times(Polynom p){
+        Polynom res = new Polynom(this);
         if(p.size() == 0 || size() == 0){
             return new Polynom();//0-polynom if one of the two polynoms is null
         }
         if(p.size() == 1){
-            Monom m = new Monom(((Monom)p.get))
+            Monom m = new Monom(((Monom)p.get(0)));//using the previous methode if a polynom is a monom
+            return times(m);
         }
-    }*/
+        if(size() == 1){
+            Monom m = new Monom(((Monom)get(0)));//using the previous methode if a polynom is a monom
+            return  p.times(m);
+        }
+
+        //iterative way to multiply two polynoms :
+
+        for(int i = 0 ; i < p.size() ; i++){
+            res = res.plus(res.times(p.get(i)));
+        }
+        res.sort();
+        return res;
+    }
 
 
 

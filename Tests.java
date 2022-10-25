@@ -12,6 +12,8 @@ public class Tests {
         
 
     Polynom f = new Polynom(1);
+    Polynom k = new Polynom(f);
+    //k.add(2, 5);
     f.add(new Monom(4, 1));
     f.add(-7, 15);
     f.add(11, 14);
@@ -20,14 +22,11 @@ public class Tests {
 
     System.out.println(f + " of size "+ f.size());
 
-    f.times(-0.1, 5);
+    
 
-    System.out.println(f + " of size "+ f.size());
+    System.out.println(f + "   +   " +k+" = " + f.plus(k) + " of size "+ f.size());
 
-    for(int i = 0 ; i  <4 ; i++){
-        System.out.println("element" + i + " : " + f.get(i));
-    }
-
+   
 
 
 
