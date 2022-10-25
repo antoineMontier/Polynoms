@@ -12,12 +12,14 @@ public class Tests {
 
 
     Polynom f = new Polynom(1, 0);
-   // f.add(new Monom(4, 1));
-    //f.add(-7, 15);
-   // f.add(11, 14);
-    //f.add(0);
+    f.add(new Monom(4, 1));
+    f.add(-7, 15);
+    f.add(11, 14);
+    f.add(0);
     f.sort();
-   f.times(1.2);
+
+    System.out.println(f + " of size "+ f.size());
+
 
     System.out.println(f + " of size "+ f.size());
 

@@ -56,6 +56,7 @@ public class Monom {
         return pow;
     }
 
+
     /**
      * @return the coefficient of the acutal monom
      */
@@ -113,12 +114,24 @@ public class Monom {
             return "";
         }
         if(pow > 1){
-            return coefficient + "x^" + pow;
+            if(coefficient < 0){
+                return coefficient + "x^" + pow;
+            }else{
+                return "+" + coefficient + "x^" + pow;
+            }
         }
         if(pow == 1){
-            return coefficient + "x";
+            if(coefficient < 0){
+                return coefficient + "x";
+            }else{
+                return "+" + coefficient + "x";
+            }
         }
-        return coefficient + "";
+        if(coefficient < 0){//case pow == 0
+            return coefficient + "";
+        }else{
+            return "+" + coefficient;
+        }
     }
 
 

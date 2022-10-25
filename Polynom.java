@@ -23,7 +23,7 @@ public class Polynom {
 
     public String toString(){
         String res = "";
-        for(int i = 0 ; i < c.size() ; i++){
+        for(int i = 0 ; i < c.size()-1 ; i++){
             res += c.get(i) + " ";
         }
         return res;
@@ -147,6 +147,37 @@ public class Polynom {
             r.setCoefficient(r.getCoefficient()*x);
             c.set(i, r);
         }
+    }
+
+
+
+    public void times(Monom m){
+        if((m.getPow() == 0 && m.getCoefficient() == 1 )|| size() == 0){
+            return;
+        }
+        if(m.getCoefficient() == 0){
+            for(int i = 0 ; i < c.size() ; i++){
+                c.set(i, new Monom(0));
+            }
+            
+            return;
+        }
+
+        for(int i = 0 ; i < c.size() ; i++){
+
+            Monom r = new Monom(((Monom)c.get(i)));//copy of actual monom
+
+            r.setCoefficient(r.getCoefficient()*m.getCoefficient());
+            r.setPow(r.getPow() + m.getPow());
+
+            c.set(i, r);
+        }
+
+
+
+
+
+
     }
 
 
