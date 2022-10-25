@@ -12,11 +12,12 @@ public class Tests {
         
 
     Polynom f = new Polynom(1);
-    Polynom k = new Polynom(f);
-    //k.add(2, 5);
+    Polynom k = new Polynom(7, 11);
+    k.add(2, 0);
+    k.add(1, 5);
     f.add(new Monom(4, 1));
-    f.add(-7, 15);
-    f.add(11, 14);
+    //f.add(-7, 15);
+    //f.add(1, 14);
     f.add(0);
     f.sort();
 
@@ -24,7 +25,7 @@ public class Tests {
 
     
 
-    System.out.println(f + "   +   " +k+" = " + f.plus(k) + " of size "+ f.size());
+    System.out.println(f + "   *   " +k+" = " + f.times(k));
 
    
 

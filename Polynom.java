@@ -185,13 +185,9 @@ public class Polynom {
     public Polynom times(double x){
         Polynom res = new Polynom();
         if(x == 1 || size() == 0){
-            return res;
+            return this;
         }
         if(x == 0){
-            for(int i = 0 ; i < c.size() ; i++){
-                c.set(i, new Monom(0));
-            }
-            
             return res;
         }
 
@@ -207,13 +203,9 @@ public class Polynom {
     public Polynom times(Monom m){
         Polynom res = new Polynom();
         if((m.getPow() == 0 && m.getCoefficient() == 1 )|| size() == 0){
-            return res;
+            return this;
         }
         if(m.getCoefficient() == 0){
-            for(int i = 0 ; i < c.size() ; i++){
-                c.set(i, new Monom(0));
-            }
-            res.sort();
             return res;
         }
 
@@ -226,6 +218,7 @@ public class Polynom {
 
             res.add(r);
         }
+        res.sort();
         return res;
     }
 
@@ -236,13 +229,9 @@ public class Polynom {
             throw new IllegalArgumentException("the power must be positive, you entered " + n);
         }
         if((x == 1 && n == 0)|| size() == 0){
-            return res;
+            return this;
         }
-        if(x == 0){
-            for(int i = 0 ; i < c.size() ; i++){
-                c.set(i, new Monom(0));
-            }
-            
+        if(x == 0){            
             return res;
         }
 
@@ -271,12 +260,14 @@ public class Polynom {
         }
 
         //iterative way to multiply two polynoms :
+        Polynom rres = new Polynom();
 
         for(int i = 0 ; i < p.size() ; i++){
-            res = res.plus(res.times(p.get(i)));
+            System.out.println("..." + res);
+            rres = rres.plus(this.times(p.get(i)));
         }
-        res.sort();
-        return res;
+        rres.sort();
+        return rres;
     }
 
 
