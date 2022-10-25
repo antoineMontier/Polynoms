@@ -1,5 +1,9 @@
 public class Polynom {
 
+    private final double PRECISION = 100;
+    private final double X_MAX = 100;
+    private final double X_MIN = -X_MAX;
+
 
     private LinkedList c;//coefficient tab
 
@@ -478,6 +482,42 @@ public class Polynom {
             return 0;
         }
         return primitive().im(sup) - primitive().im(inf);
+    }
+
+    /**
+     * @return if the function is even f(x) = f(-x)
+     * the precision of this function can be improved by increasing PRECISION parameter
+     * the precision decrease as the deg() of the polynom increase
+     */
+    public boolean even(){
+        if(size() == 0){
+            return true;
+        }
+        double pas = 2*deg()/PRECISION;//proportionnal to degree of function (because double numbers has limitations)
+        boolean res = true;
+        for(double x = 0 ; x < X_MAX && res ; x += pas){
+            res = res && (Math.abs(im(x) - im(-x)) < pas);
+            //System.out.println("even at x = " + x);
+        }
+        return res;
+    }
+
+    /**
+     * @return if the function is uneven f(-x) = -f(x)
+     * the precision of this function can be improved by increasing PRECISION parameter
+     * the precision decrease as the deg() of the polynom increase
+     */
+    public boolean uneven(){
+        if(size() == 0){
+            return true;
+        }
+        double pas = 2*deg()/PRECISION;//proportionnal to degree of function (because double numbers has limitations)
+        boolean res = true;
+        for(double x = 0 ; x < X_MAX && res ; x += pas){
+            res = res && (Math.abs(im(-x) + im(x)) < pas);
+            //System.out.println("uneven at x = " + x);
+        }
+        return res;
     }
 
 
