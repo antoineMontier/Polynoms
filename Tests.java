@@ -24,6 +24,10 @@ public class Tests {
 
     System.out.println(f + " of size "+ f.size());
 
+    for(int i = 0 ; i  <4 ; i++){
+        System.out.println("element" + i + " : " + f.get(i));
+    }
+
 
 
 

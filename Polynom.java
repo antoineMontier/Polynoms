@@ -89,7 +89,13 @@ public class Polynom {
         c.addTail(m);
     }
 
-
+    public Monom get(int i){
+        if(i < 0 || i >= size()){
+            throw new IllegalArgumentException("you can't get the "+i+"e monom of the polynom" + this);
+        }
+        this.sort();
+        return ((Monom)c.get(i));
+    }
 
 
     /**
@@ -149,8 +155,6 @@ public class Polynom {
         }
     }
 
-
-
     public void times(Monom m){
         if((m.getPow() == 0 && m.getCoefficient() == 1 )|| size() == 0){
             return;
@@ -195,10 +199,22 @@ public class Polynom {
             r.setPow(r.getPow() + n);
             c.set(i, r);
         }
-
-
-
     }
+
+    /*public Polynom times(Polynome p){
+        if(p.size() == 0 || size() == 0){
+            return new Polynom();//0-polynom if one of the two polynoms is null
+        }
+        if(p.size() == 1){
+            Monom m = new Monom(((Monom)p.get))
+        }
+    }*/
+
+
+
+
+
+
 
 
     
