@@ -378,6 +378,10 @@ public class Polynom {
         return true;
     }
 
+    /**
+     * @param n index of the coefficient we're searching for
+     * @return coefficient with this index
+     */
     public double getCoefficientWithIndex(int n){
         if(n < 0){
             throw new IllegalArgumentException("the power must be positive, you entered " + n);
@@ -394,5 +398,41 @@ public class Polynom {
         return 0;
     }
 
+    /**
+     * @param x abs value we want to test
+     * @return image of x
+     * usage of Math.pow
+     */
+    public double im(double x){
+        if(size() == 0){
+            return 0;
+        }
+        double res = 0;
+        for(int i = 0 ; i < size() ; i++){
+            res += get(i).getCoefficient()*Math.pow(x, get(i).getPow());
+        }
+        return res;
+    }
+
+    /**
+     * @param n power 
+     * @return polynome raised to the n power
+     */
+    public Polynom pow(int n){
+        if(n < 0){
+            throw new IllegalArgumentException("the power must be positive, you entered " + n);
+        }
+        if(n == 0){
+            return new Polynom(1);
+        }
+        if(n == 1){
+            return this;
+        }
+        Polynom res = new Polynom(this);
+        for(int i = 0 ; i < n-1 ; i++){
+            res = res.times(this);
+        }
+        return res;
+    }
     
 }

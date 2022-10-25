@@ -11,24 +11,30 @@ public class Tests {
 
         
 
-    Polynom f = new Polynom(2.0);
+    Polynom f = new Polynom(1.0);
     Polynom k = new Polynom(7, 11);
     k.add(2, 0);
     k.add(1, 5);
-    f.add(new Monom(7, 11));
-    f.add(1, 5);
+    //f.add(new Monom(7, 11));
+    f.add(1, 1);
     //f.add(1, 14);
     f.add(0);
     f.sort();
 
+    System.out.println("f(x) = " + f + "f^2 = " + f.pow(6));
+
+    System.out.println("f(x) = " + f + "f(2) = " + f.im(2));
+    System.out.println("f(x) = " + f + "f(0) = " + f.im(0));
+
+    
+    
+
+
+    /*
     for(int i = 0 ; i <= f.deg() ; i++){
         System.out.println("coeff with index " + i + " in " + f + " : " + f.getCoefficientWithIndex(i));
     }
     System.out.println(f + " = "+ k + " : " + f.equals(k));
-
-
-    /*
-    
     System.out.println(f + " of size "+ f.size() + " of deg " + f.deg());
     System.out.println(f + "   *   " +k+" = " + f.times(k));
      */
