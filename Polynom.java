@@ -54,6 +54,9 @@ public class Polynom {
         for(int i = 0 ; i < c.size() ; i++){
             res += c.get(i) + " ";
         }
+        if(res == "" || res == " "){
+            res = "0";
+        }
         return res;
     }
 
@@ -435,4 +438,43 @@ public class Polynom {
         return res;
     }
     
+    /**
+     * @return the derivate of the actual polynom
+     */
+    public Polynom derivate(){
+        Polynom res = new Polynom();
+        if(deg() == 0){
+            return res;
+        }
+        for(int  i = 0 ; i< size() ; i++){
+            if(get(i).getPow() > 0){
+                res.add(get(i).getCoefficient()*get(i).getPow() , get(i).getPow()-1 );
+            }
+        }
+        return res;
+    }
+
+    /**
+     * @return the primitive of the actual polynom
+     */
+    public Polynom primitive(){
+        Polynom res = new Polynom();
+        if(size() == 0){
+            return res;
+        }
+        for(int i = 0 ; i < size() ; i++){
+            res.add(get(i).getCoefficient()/(get(i).getPow()+1), get(i).getPow() +1);
+        }
+        return res;
+    }
+
+
+
+
+
+
+
+
+
+
 }
