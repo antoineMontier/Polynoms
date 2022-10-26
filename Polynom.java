@@ -68,14 +68,13 @@ public class Polynom {
      * @return the monom number
      */
     public int size(){
-        return c.size();
-        /*int r = 0;
-        for(int i = 0 ; i < c.size() ;i++){
-            if(((Monom)c.get(i)).getCoefficient() != 0){//assert the monom value isn't zero
-                r++;
+        //kill useless monoms
+        for(int i = 0 ; i < c.size() ; i++){
+            if(((Monom)c.get(i)).getCoefficient() == 0 || c.get(i) == null){
+                c.removeCell(i);
             }
         }
-        return r;*/
+        return c.size();
     }
 
     /**
@@ -621,35 +620,35 @@ public class Polynom {
         return res;
     }
 
+    public static Polynom regression(LinkedList l){
+        //empty list exception
+        if(l.size() == 0){
+            throw new IllegalArgumentException("list of points must be at least composed of 1 elemnt !")
+        }
 
 
+        for(int i = 0 ; i < l.size(); i++){
+            if(LinkedList.stringCompare(l.get(i).getClass().getSimpleName(), "Point") != 0){
+                throw new IllegalArgumentException("list of points must be composed of points but the element "+ l.get(i) + " isn't a point (index : " + i + ") !");
+            }
+        }
+
+        Polynom res = new Polynom();
+
+        //assert the list contains only points
+
+        if(l.size() == 1){
+            res.add(((Point)l.get(0)).getOrd());
+            return res;
+        }
+
+        //assert no points has the same x value
 
 
+        //one element exception
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        //two elements exception
+    }
 
 
 }
