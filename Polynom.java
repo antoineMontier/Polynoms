@@ -112,7 +112,7 @@ public class Polynom {
             }
         }
         Monom m = new Monom(x, 0);
-        System.out.print("adding " + m);
+        //System.out.print("adding " + m);
         c.addTail(m);
     }
 
@@ -169,7 +169,7 @@ public class Polynom {
         if(c.size() != size()){
             throw new Error("error in function sort ; there are " + (c.size() - size())+" useless monoms in the list of the polynom" + this);
         }
-        
+
         int n = size() -2;
         int exchangeindex;
         while(n >= 0){
@@ -196,7 +196,7 @@ public class Polynom {
         res.sort();
         return res;
     }
-    
+
     /**
      * @param x double to add
      * @return new polynom resulting the addition
@@ -207,7 +207,7 @@ public class Polynom {
         res.sort();
         return res;
     }
-    
+
     /**
      * @param x coefficient
      * @param n power
@@ -218,11 +218,11 @@ public class Polynom {
         if(n < 0){
             throw new IllegalArgumentException("the power of a monom must be positif but you entered " + n + " as power");
         }
-        res.add(x, n);     
+        res.add(x, n);
         res.sort();
         return res;
     }
-   
+
     /**
      * @param p polynom to add
      * @return new polynom resulting the addition
@@ -302,7 +302,7 @@ public class Polynom {
         if((x == 1 && n == 0)|| size() == 0){
             return this;
         }
-        if(x == 0){            
+        if(x == 0){
             return res;
         }
 
@@ -421,7 +421,7 @@ public class Polynom {
     }
 
     /**
-     * @param n power 
+     * @param n power
      * @return polynome raised to the n power
      */
     public Polynom pow(int n){
@@ -440,7 +440,7 @@ public class Polynom {
         }
         return res;
     }
-    
+
     /**
      * @return the derivate of the actual polynom
      */
@@ -472,7 +472,7 @@ public class Polynom {
     }
 
     /**
-     * @param inf inferior value 
+     * @param inf inferior value
      * @param sup superior value
      * @return the integral of the current polynom between inf and sup
      */
@@ -532,7 +532,7 @@ public class Polynom {
         boolean positiv = im(X_MIN) > 0;
         boolean focus = false;
         double pas = deg()/PRECISION;
-        //seach loop 
+        //seach loop
         double s;
         boolean spositiv;
         boolean sprevpositiv;
@@ -567,55 +567,58 @@ public class Polynom {
         }
         return res;
     }
-    
+
+    /**
+     * @return a an interval list on which the polynom is positive
+     */
     public LinkedList positive(){
         LinkedList res = new LinkedList();
-        
         if(size() == 0){
             return res;
         }
-        
         LinkedList roots = roots();
-        
         if(roots.isEmpty()){
             return res;
         }
-        
         LinkedList simpleXroots = new LinkedList();
-        
-        for(int i = 0  ; i < rooots.size() ; i++){
-            simpleXroots.addHead(((Point)get(i)).getOrd());//extract the x values of all the roots
+        for(int i = 0  ; i < roots.size() ; i++){
+            simpleXroots.addHead(((Point)roots.get(i)).getAbs());//extract the x values of all the roots
         }
-        simpleXroots.sort()
-        
+        simpleXroots.sort();
         roots = null;//destroy roots list
-        
         double px;
         boolean positive;
         Interval in = new Interval();
-        if(im(X_MIN)>0){
-            //in.setInf(X_MIN, false);
-            px = X_MIN;
-            positive = true;
-        }else{
-            positive = false;
+        double x = X_MIN;
+        double y = ((double)simpleXroots.get(0));
+
+        //catch the 1 root exception
+        if(simpleXroots.size() == 1){
+          if(im(x/2 + y/2) > 0){
+            res.addHead(new Interval(X_MIN, y));
+          }else{
+            res.addHead(new Interval(y, X_MAX));
+          }
+          return res;
         }
-        
-        for(int i = 0 ; i < simpleXroots.size(); i++){
-            if(im((px + simpleXroots.get(i))/2) > 0 ){
-                in.setInf(px);
-                in.setSup(simpleXroots.get(i));
-                res.add(new Interval(in));
-            }else{
-                px = simpleXroots.get(i);
-            } 
+
+
+        for(int i = 1 ; i < simpleXroots.size(); i++){
+          if(im(x/2 + y/2) > 0){
+
+            res.addTail(new Interval(x, y));
+          }
+          do {
+            x = y;
+            y = ((double)simpleXroots.get(i));
+          } while (im(x/2 + y/2) < 0);
+
         }
-        
+        y = X_MAX;
+        if(im(x/2 + y/2) > 0){
+          res.addTail(new Interval(x, y));
+        }
         return res;
-        
-        
-        
-        
     }
 
 
