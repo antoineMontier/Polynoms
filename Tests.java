@@ -9,20 +9,24 @@ public class Tests {
     System.out.println(r + " of size "+ r.size());
     System.out.println(r + " of size "+ r.size());*/
 
-        
+
 
     Polynom f = new Polynom();
-    f.add(1, 1);
-    f.add(-1, 31);
-    f.add(4);
-    f.sort();
+    f.add(2, 80);
+    f.add(4, 40);
+    f.add(150, 25);
+    f.add(4, 13);
 
-    System.out.println("f(x) = " + f + "  roots of f : " + f.roots());
-   
+    f.sort();
+    System.out.println("");
+    System.out.println("f(x) = " + f + "  f is positive on : " + f.positive());
+    System.out.println("");
 
 
 
     /*
+    System.out.println("f(x) = " + f + "  roots of f : " + f.roots());
+
     System.out.println("f(x) = " + f + "  f even : " + f.even());
     System.out.println("f(x) = " + f + "  f uneven : " + f.uneven());
 
@@ -44,9 +48,9 @@ public class Tests {
     System.out.println(f + " of size "+ f.size() + " of deg " + f.deg());
     System.out.println(f + "   *   " +k+" = " + f.times(k));
      */
-   
 
-   
+
+
 
 
 
