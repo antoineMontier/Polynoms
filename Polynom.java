@@ -623,10 +623,10 @@ public class Polynom {
     public static Polynom regression(LinkedList l){
         //empty list exception
         if(l.size() == 0){
-            throw new IllegalArgumentException("list of points must be at least composed of 1 elemnt !")
+            throw new IllegalArgumentException("list of points must be at least composed of 1 elemnt !");
         }
 
-
+        //assert the list contains only points
         for(int i = 0 ; i < l.size(); i++){
             if(LinkedList.stringCompare(l.get(i).getClass().getSimpleName(), "Point") != 0){
                 throw new IllegalArgumentException("list of points must be composed of points but the element "+ l.get(i) + " isn't a point (index : " + i + ") !");
@@ -635,20 +635,49 @@ public class Polynom {
 
         Polynom res = new Polynom();
 
-        //assert the list contains only points
 
+        //one element exception
         if(l.size() == 1){
             res.add(((Point)l.get(0)).getOrd());
             return res;
         }
 
         //assert no points has the same x value
+        for(int i = 0 ; i < l.size() -1; i++){
+            double search = ((Point)l.get(i)).getAbs();//remove search
+            for(int j = i+1 ; j < l.size() ; j++){
+                if(((Point)l.get(j)).getAbs() == search){
+                    throw new IllegalArgumentException("point " + l.get(i) + " (index :" + i + ") and point " + l.get(j) + " (index : " + j + ") have the same x-value !");
+                }
+            }
+        }
+        
+        //Here, the list is full of points of different x-values
 
+        double sys[][] = new double[l.size() + 1][l.size() + 1];
 
-        //one element exception
+        for(int i = 0 ; i < sys.length -1; i++){
+            for(int j = 0 ; j < sys[0].length -1 ;j++){     //j deosn't go to the end because we use the end to keep y-axis
+                sys[i][j] = Math.pow(((Point)l.get(i)).getAbs(), l.size()-1 -j);
+            }
+            sys[i][sys[0].length -1] = -((Point)l.get(i)).getOrd();
+          }
 
-        //two elements exception
+          LinearSystem ls = new LinearSystem(sys);
+          System.out.println(ls);
+
+          ls.scale();
+          
+          LinkedList solutions = ls.solutions();
+
+          if(solutions.size() != l.size()){
+            throw new Error("in function regression , the size of solutions list (" + solutions.size() + ") should be the same as the point list size ("+l.size()+")");
+          }
+
+          for(int d = 0 ; d < 0 ; d++){
+            res.add(((double)solutions.get(d)), solutions.size() - 1 - d);
+          } 
+          res.sort();
+          return res;
     }
-
-
 }
