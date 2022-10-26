@@ -567,6 +567,56 @@ public class Polynom {
         }
         return res;
     }
+    
+    public LinkedList positive(){
+        LinkedList res = new LinkedList();
+        
+        if(size() == 0){
+            return res;
+        }
+        
+        LinkedList roots = roots();
+        
+        if(roots.isEmpty()){
+            return res;
+        }
+        
+        LinkedList simpleXroots = new LinkedList();
+        
+        for(int i = 0  ; i < rooots.size() ; i++){
+            simpleXroots.addHead(((Point)get(i)).getOrd());//extract the x values of all the roots
+        }
+        simpleXroots.sort()
+        
+        roots = null;//destroy roots list
+        
+        double px;
+        boolean positive;
+        Interval in = new Interval();
+        if(im(X_MIN)>0){
+            //in.setInf(X_MIN, false);
+            px = X_MIN;
+            positive = true;
+        }else{
+            positive = false;
+        }
+        
+        for(int i = 0 ; i < simpleXroots.size(); i++){
+            if(im((px + simpleXroots.get(i))/2) > 0 ){
+                in.setInf(px);
+                in.setSup(simpleXroots.get(i));
+                res.add(new Interval(in));
+            }else{
+                px = simpleXroots.get(i);
+            } 
+        }
+        
+        return res;
+        
+        
+        
+        
+    }
 
 
 
