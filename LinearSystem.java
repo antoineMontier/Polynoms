@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class LinearSystem{
@@ -176,36 +175,31 @@ public class LinearSystem{
         multLine(pivot, 1/c[pivot][k]);         //transform pivot's line to make a 1 appear as the pivot's coefficient
         
         for(int l = k+1 ; l <= nbL ; l++){
-          addLine(l, pivot, -c[l][k]);          //scale les lignes en dessous
+          addLine(l, pivot, -c[l][k]);          //scale
           }
         deleteEmptyCol();
-        deleteEmptyLine();                      //re-supprimer les lignes/colonnes emptys permet de retirer si jamais certainnes lignes sont liées
+        deleteEmptyLine();                    
         }
     }
     
     
-    public List<Double> solutions(){
-      List<Double> sol = new ArrayList<Double>();
-                                                            //résoudre la derniere ligne "à la main":
-      sol.add(-c[nbL][nbC]/c[nbL][nbC - 1]);
+    public LinkedList solutions(){
+      LinkedList sol = new LinkedList();
+      sol.addTail(-c[nbL][nbC]/c[nbL][nbC - 1]);
       double r = 0;
-      for(int l = nbL-1 ; l >= 0 ; l--){                    //principe de la remontée en partant du bas    ;   l est le n° de ligne sur laquelle on travaille
-        r = -c[l][nbC];                                     // faire passer le terme constant en negatif
-        //System.out.println("ligne " + l + " avant multiplication des coefficients, le resultat est egal a "+ r);
+      for(int l = nbL-1 ; l >= 0 ; l--){ 
+        r = -c[l][nbC];
         for(int b = nbL ; b > l ; b--){
-          r -= sol.get(nbL - b)*c[l][b]; 
-          //System.out.println("b = " + b + " pour l = " + l);
+          r -= ((double)sol.get(nbL - b))*c[l][b]; 
         }
-        //System.out.println("ligne " + l + " avant division, le resultat est egal a "+ r);
         r/=c[l][l];
-        sol.add(r);
+        sol.addTail(r);
       }
       if(sol.size() == nbC){
-        Collections.reverse(sol);                           //renverser car on part de la fin avec le principe de la remontée
-        return sol; 
+       sol.reverse();
+      }else{
+        System.out.println("no solutions");
       }
-      System.out.println("no solutions");             //si le nombre de solutions ne coincide pas avec le nombre d'inconnues, on abaandonne
-      sol.clear();
       return sol;
     }
 }
