@@ -620,6 +620,11 @@ public class Polynom {
         return res;
     }
 
+    /**
+     * @param l the Linkedlist of points
+     * @return a polynom that passes throught every points
+     * be aware, every points should have a different x-value
+     */
     public static Polynom regression(LinkedList l){
         //empty list exception
         if(l.size() == 0){
@@ -670,14 +675,24 @@ public class Polynom {
           if(solutions.size() != l.size()){
             throw new Error("in function regression , the size of solutions list (" + solutions.size() + ") should be the same as the point list size ("+l.size()+")");
           }
-          double t ;
-          int deg;
           for(int d = 0 ; d < solutions.size() ; d++){
-            t = ((double)solutions.get(d));
-            deg = solutions.size() -1- d;
-            res.add(t, deg);
+            res.add(((double)solutions.get(d)), solutions.size() -1- d);
           } 
           res.sort();
           return res;
+    }
+
+
+    /**
+     * @param t is the tangent point
+     * @return a polynom ax + b tangent of the called polynom at x point
+     * f(x) = f'(t)(x - t) + f(t) // f'(t)*x - f'(t)*t + f(t)
+     */
+    public Polynom tangent(double t){
+        Polynom res = new Polynom();
+        res.add(derivate().im(t), 1);
+        res.add(-t*derivate().im(t));
+        res.add(im(t));
+        return res;
     }
 }
