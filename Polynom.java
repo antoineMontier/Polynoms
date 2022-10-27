@@ -647,7 +647,7 @@ public class Polynom {
             double search = ((Point)l.get(i)).getAbs();//remove search
             for(int j = i+1 ; j < l.size() ; j++){
                 if(((Point)l.get(j)).getAbs() == search){
-                    throw new IllegalArgumentException("point " + l.get(i) + " (index :" + i + ") and point " + l.get(j) + " (index : " + j + ") have the same x-value !");
+                    throw new IllegalArgumentException("point " + l.get(i) + " (index : " + i + ") and point " + l.get(j) + " (index : " + j + ") have the same x-value !");
                 }
             }
         }
@@ -664,18 +664,18 @@ public class Polynom {
           }
 
           LinearSystem ls = new LinearSystem(sys);
-          System.out.println(ls);
-
           ls.scale();
-          
           LinkedList solutions = ls.solutions();
 
           if(solutions.size() != l.size()){
             throw new Error("in function regression , the size of solutions list (" + solutions.size() + ") should be the same as the point list size ("+l.size()+")");
           }
-
-          for(int d = 0 ; d < 0 ; d++){
-            res.add(((double)solutions.get(d)), solutions.size() - 1 - d);
+          double t ;
+          int deg;
+          for(int d = 0 ; d < solutions.size() ; d++){
+            t = ((double)solutions.get(d));
+            deg = solutions.size() -1- d;
+            res.add(t, deg);
           } 
           res.sort();
           return res;
