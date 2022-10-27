@@ -1,15 +1,26 @@
 public class Tests {
     public static void main(String[] args){
 
-    /*LinkedList r = new LinkedList();
-    r.addHead(2);
-    r.addHead(3);
-    r.addHead(4);
+    Polynom p = new Polynom();
+    p.add(1, 5);
+    p.add(2, 8);
+    p.add(5);
+    p.add(-2, 3);
 
-    System.out.println(r + " of size "+ r.size());
-    System.out.println(r + " of size "+ r.size());*/
+    System.out.println("");
+    
+    System.out.println(" p(x)    = " + p);
+    System.out.println(" T(1)    : y = " + p.tangent(1));
+    System.out.println(" T(-0.5) : y = " + p.tangent(-0.5));
+    System.out.println(" T(0.5)  : y = " + p.tangent(0.5));
 
 
+
+    System.out.println("");
+
+
+
+    /*
     LinkedList ll = new LinkedList();
     ll.addHead(new Point(2, 3));
     ll.addHead(new Point(-1, 4));
@@ -20,16 +31,8 @@ public class Tests {
     ll.addHead(new Point(1, 12));
     ll.addHead(new Point(-3, -9));
 
+    System.out.println("f(x) = "  Polynom.regression(ll));
 
-    Polynom f = Polynom.regression(ll);
-    System.out.println("");
-    System.out.println("f(x) = " + f);
-
-    System.out.println("");
-
-
-
-    /*
     System.out.println("f(x) = " + f + "  f is positive on : " + f.positive());
 
     System.out.println("f(x) = " + f + "  roots of f : " + f.roots());
