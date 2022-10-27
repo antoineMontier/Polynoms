@@ -10,74 +10,21 @@ public class Tests {
     System.out.println(r + " of size "+ r.size());*/
 
 
-
-    Polynom f = new Polynom();
-    f.add(2, 80);
-    f.add(4, 40);
-    f.add(150, 25);
-    f.add(4, 13);
-
-    double c[][] = new double[5][5];
-
-
-    c[0][0] = 2;
-    c[0][1] = 1;
-    c[0][2] = -1;
-    c[0][3] = 4;
-    c[0][4] = -19;
-
-    c[1][0] = -1;
-    c[1][1] = -2;
-    c[1][2] = 1;
-    c[1][3] = 1;
-    c[1][4] = 3;
-
-    c[2][0] = 2;
-    c[2][1] = 4;
-    c[2][2] = 2;
-    c[2][3] = 1;
-    c[2][4] = -25;
-
-    c[3][0] = -1;
-    c[3][1] = 1;
-    c[3][2] = -1;
-    c[3][3] = -2;
-    c[3][4] = -5;
-
-    LinearSystem s = new LinearSystem(c);
-    //-9.0666 9.266 -0.399 6.866
-
-    
-    System.out.println(s);
-
-    s.scale();
-
-    System.out.println(s);
-
-    System.out.println(s.solutions());
+    LinkedList ll = new LinkedList();
+    ll.addHead(new Point(2, 3));
+    ll.addHead(new Point(-1, 4));
+    ll.addHead(new Point(-5, 8));
+    ll.addHead(new Point(11, 14));
+    ll.addHead(new Point(-17, 3));
+    ll.addHead(new Point(0, -15));
+    ll.addHead(new Point(1, 12));
+    ll.addHead(new Point(-3, -9));
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    f.sort();
+    Polynom f = Polynom.regression(ll);
     System.out.println("");
-    
+    System.out.println("f(x) = " + f);
+
     System.out.println("");
 
 
