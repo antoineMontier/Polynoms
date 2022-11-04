@@ -72,19 +72,31 @@ public class Interval{
   }
   
   public void setInf(double x){
+    if(x > b){
+      throw new IllegalArgumentException(x + " is greater than " + b);
+    }
     a = x;
   }
   
   public void setInf(double x, boolean tA){
+    if(x > b){
+      throw new IllegalArgumentException(x + " is greater than " + b);
+    }
     a = x;
     takeA = tA;
   }
   
     public void setSup(double x){
+     if(x < a){
+      throw new IllegalArgumentException(x + " is lower than " + a);
+    }
     b = x;
   }
   
   public void setSup(double x, boolean tB){
+    if(x < a){
+      throw new IllegalArgumentException(x + " is lower than " + a);
+    }
     b = x;
     takeB = tB;
   }
