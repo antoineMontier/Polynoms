@@ -695,4 +695,8 @@ public class Polynom {
         res.add(im(t));
         return res;
     }
+    
+    public LinkedList inflexion(){
+        return derivate().derivate().roots();
+    }
 }
